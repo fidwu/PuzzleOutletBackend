@@ -1,13 +1,14 @@
 const express = require('express');
 const morgan = require('morgan');
 const mongoose = require("mongoose");
+require('dotenv').config();
+
 const cartRouter = require('./routes/cartRouter');
 
-const hostname = 'localhost';
 const port = process.env.PORT || 3001;
 
 // MongoDB
-mongoose.connect(MONGODB_URI, {
+mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -21,10 +22,9 @@ mongoose.connection.on('connected', () => {
 const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use('/cart', cartRouter);
-
-// app.use(express.static(__dirname + '/public'));
 
 app.use((req, res) => {
     res.statusCode = 200;
