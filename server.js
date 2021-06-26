@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require('dotenv').config();
 
 const cartRouter = require('./routes/cartRouter');
+const pastOrdersRouter = require('./routes/pastOrdersRouter');
 
 const port = process.env.PORT || 3001;
 
@@ -25,6 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use('/cart', cartRouter);
+app.use('/orders', pastOrdersRouter);
 
 app.use((req, res) => {
     res.statusCode = 200;
