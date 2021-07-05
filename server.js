@@ -5,6 +5,8 @@ require('dotenv').config();
 
 const cartRouter = require('./routes/cartRouter');
 const pastOrdersRouter = require('./routes/pastOrdersRouter');
+const itemsRouter = require('./routes/ItemRouter');
+const userRouter = require('./routes/userRouter');
 
 const port = process.env.PORT || 3001;
 
@@ -27,16 +29,14 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/cart', cartRouter);
 app.use('/orders', pastOrdersRouter);
+app.use('/items', itemsRouter);
+app.use('/users', userRouter);
 
 app.use((req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'text/html');
     res.end('<html><body><h1>Shoptech Backend</h1></body></html>');
 });
-
-// app.listen(port, hostname, () => {
-//     console.log(`Server running at http://${hostname}:${port}/`);
-// });
 
 app.listen(port, () => {
     console.log(`Server listening on ${port}`);

@@ -40,6 +40,6 @@ const PastOrdersSchema = new Schema({
 });
 
 // Model
-const PastOrders = mongoose.model('pastorders', PastOrdersSchema);
+const PastOrders = mongoose.model('Pastorders', PastOrdersSchema);
 
 module.exports = PastOrders;
