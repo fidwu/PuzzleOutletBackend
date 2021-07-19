@@ -24,7 +24,7 @@ ordersRouter
     const newOrders = new Orders(data);
     newOrders
       .save()
-      .then(() => res.json(`item ${data} added to cart!`))
+      .then(() => res.json(data))
       .catch((err) => res.status(400).json("Error: " + err));
   });
 

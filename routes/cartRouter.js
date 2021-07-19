@@ -11,7 +11,6 @@ cartRouter.route("/")
 
   .post((req, res) => {
     const data = req.body;
-    console.log(data);
     const newItem = new Cart(data);
     newItem
       .save()
@@ -19,9 +18,9 @@ cartRouter.route("/")
       .catch((err) => res.status(400).json("Error: " + err));
   });
 
-cartRouter.route("/:username")
+cartRouter.route("/:user")
   .get((req, res) => {
-    Cart.find({ "username": req.params.username })
+    Cart.find({ "user": req.params.user })
       .then((items) => {
         console.log(items);
         res.json(items)
@@ -29,13 +28,24 @@ cartRouter.route("/:username")
       .catch((err) => res.status(400).json("Error: " + err));
   })
 
+  .delete((req, res) => {
+    Cart.deleteMany(
+    {
+      user: req.params.user
+    })
+      .then((cart) => {
+        console.log(cart);
+        res.statusCode = 200;
+        res.json(cart);
+      })
+      .catch((err) => res.status(400).json("Error: " + err));
+  })
 
-cartRouter.route("/:username/:itemId")
+
+cartRouter.route("/:user/:itemId")
   .get((req, res) => {
-    console.log(req.params.username);
-    console.log(req.params.itemId);
     Cart.findOne(
-      { username: req.params.username, itemId: req.params.itemId }
+      { user: req.params.user, itemId: req.params.itemId }
     )
       .then((items) => {
         console.log(items);
@@ -50,9 +60,9 @@ cartRouter.route("/:username/:itemId")
     Cart.findOneAndUpdate(
       {
         itemId: req.params.itemId,
-        username: req.params.username,
+        user: req.params.user,
       },
-      { quantity: req.body.quantity },
+      req.body,
       { upsert: true, new: true }
     )
       .then((cart) => {
@@ -63,12 +73,10 @@ cartRouter.route("/:username/:itemId")
   })
 
   .delete((req, res) => {
-    console.log(req.params.itemId);
-    console.log(req.params.username);
     Cart.findOneAndDelete(
       {
         itemId: req.params.itemId,
-        username: req.params.username,
+        user: req.params.user,
       }
     )
       .then((cart) => {

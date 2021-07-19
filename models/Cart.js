@@ -3,16 +3,12 @@ const mongoose = require("mongoose");
 // Schema
 const Schema = mongoose.Schema;
 const CartSchema = new Schema({
-    username: String,
+    user: String,
     itemId: String,
     quantity: Number,
     product: String,
     price: String,
     image: String
-    // item: {
-    //     type: Schema.Types.ObjectId, 
-    //     ref: 'Item'
-    // }
 });
 
 // Model
