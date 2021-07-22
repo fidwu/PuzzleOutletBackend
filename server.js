@@ -42,10 +42,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/cart', cartRouter);
-app.use('/orders', pastOrdersRouter);
-app.use('/items', itemsRouter);
-app.use('/users', userRouter);
+app.use('api/cart', cartRouter);
+app.use('api/orders', pastOrdersRouter);
+app.use('api/items', itemsRouter);
+app.use('api/users', userRouter);
 
 app.use((req, res) => {
     res.statusCode = 200;
